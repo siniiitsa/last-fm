@@ -1,0 +1,15 @@
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import tracksReducer from './tracks';
+import thunk from 'redux-thunk';
+
+const rootReducer = combineReducers({
+  tracks: tracksReducer,
+});
+
+const configureStore = () => {
+  const composedEnhancer = composeWithDevTools(applyMiddleware(thunk));
+  return createStore(rootReducer, composedEnhancer);
+};
+
+export default configureStore;
