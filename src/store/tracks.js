@@ -1,16 +1,27 @@
+import { fetchTopTracks } from '../services/musicService';
+
 // Action types
-const INIT_TRACKS = 'INIT_SONGS';
+const ADD_TRACKS = 'ADD_TRACKS';
 
 // Action creators
-export const initTracks = (tracks) => ({
-  type: INIT_TRACKS,
-  payload: { tracks },
+const addTracks = (payload) => ({
+  type: ADD_TRACKS,
+  payload,
 });
+
+export const requestAddTracks = (limit) => async (dispatch) => {
+  try {
+    const tracks = await fetchTopTracks(limit);
+    dispatch(addTracks({ tracks }));
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 // Reducer
 const tracksReducer = (state = [], action) => {
   switch (action.type) {
-    case INIT_TRACKS: {
+    case ADD_TRACKS: {
       const { tracks } = action.payload;
       return [...tracks];
     }

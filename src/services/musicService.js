@@ -12,7 +12,7 @@ const normalizeTrack = (track) => ({
   imageUrl: track.image.find((i) => i.size === 'large')['#text'],
 });
 
-export const getTopTracks = async (limit) => {
+export const fetchTopTracks = async (limit) => {
   const url = `${apiBase}?method=chart.gettoptracks&api_key=${apiKey}&format=json&limit=${limit}`;
 
   try {
