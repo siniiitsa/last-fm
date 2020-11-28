@@ -1,26 +1,28 @@
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Header from './Header';
 import TopTracks from './TopTracks';
-import { PageHeader, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
 import Container from './common/Container';
+import NotFound from './NotFound';
+import ArtistInfo from './ArtistInfo';
+import TrackSearch from './TrackSearch';
 
 const App = () => {
   return (
     <div>
-      <PageHeader
-        title="Last.fm"
-        subTitle="Explore top tracks and artists"
-        avatar={{
-          src:
-            'https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/195_Lastfm-512.png',
-        }}
-        extra={[
-          <Button type="primary" key="1" icon={<SearchOutlined />}>
-            Search tracks
-          </Button>,
-        ]}></PageHeader>
       <Container>
-        <TopTracks />
+        <Header />
+        <Switch>
+          <Route path="/artist/:name/:id" component={ArtistInfo} />
+          <Route path="/tracks" component={TopTracks} />
+          <Route path="/search" component={TrackSearch} />
+          <Route path="/not-found" component={NotFound} />
+
+          <Redirect from="/chart" to="/tracks" />
+          <Redirect from="/songs" to="/tracks" />
+          <Redirect from="/" exact to="/tracks" />
+          <Redirect to="/not-found" />
+        </Switch>
       </Container>
     </div>
   );

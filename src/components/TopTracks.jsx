@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { List, Avatar, Typography } from 'antd';
 import { requestAddTracks } from '../store/tracks';
@@ -12,7 +13,7 @@ const TopTracks = (props) => {
 
   useEffect(() => {
     dispatch(requestAddTracks(10));
-  }, [dispatch]);
+  }, []);
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -31,9 +32,9 @@ const TopTracks = (props) => {
                 <span>
                   Artist:{' '}
                   {
-                    <a href={t.artistUrl} rel="noreferrer" target="_blank">
+                    <Link to={`/artist/${t.artistName}/${t.artistId}`}>
                       {t.artistName}
-                    </a>
+                    </Link>
                   }{' '}
                   |{' '}
                   {
