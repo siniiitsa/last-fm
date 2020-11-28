@@ -6,11 +6,23 @@ const sharedSecret = '238ed36ca9c7c99594def87364c2871d';
 const apiBase = 'http://ws.audioscrobbler.com/2.0/';
 
 const normalizeTrack = (track) => ({
-  name: track.name,
+  trackName: track.name,
   artistName: track.artist.name,
   artistUrl: track.artist.url,
   imageUrl: track.image.find((i) => i.size === 'large')['#text'],
 });
+
+const getTrackInfo = async (trackName, artistName) => {
+  const url = `${apiBase}?method=track.getInfo&api_key=${apiKey}&artist=${artistName}&track=${trackName}&format=json`;
+
+  try {
+    const response = await axios.get(url);
+    return response;
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
 
 export const fetchTopTracks = async (limit) => {
   const url = `${apiBase}?method=chart.gettoptracks&api_key=${apiKey}&format=json&limit=${limit}`;

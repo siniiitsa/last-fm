@@ -22,14 +22,25 @@ const TopTracks = (props) => {
       <List
         itemLayout="horizontal"
         dataSource={tracks}
-        renderItem={(track) => (
+        renderItem={(t) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={track.imageUrl} />}
-              title={track.name}
+              avatar={<Avatar src={t.imageUrl} />}
+              title={t.trackName}
               description={
                 <span>
-                  Artist: {<a href={track.artistUrl}>{track.artistName}</a>}
+                  Artist:{' '}
+                  {
+                    <a href={t.artistUrl} rel="noreferrer" target="_blank">
+                      {t.artistName}
+                    </a>
+                  }{' '}
+                  |{' '}
+                  {
+                    <a href={t.artistUrl} rel="noreferrer" target="_blank">
+                      Artist page
+                    </a>
+                  }
                 </span>
               }
             />
