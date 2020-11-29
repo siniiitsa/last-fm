@@ -10,8 +10,8 @@ import TrackSearch from './TrackSearch';
 const App = () => {
   return (
     <div>
+      <Header />
       <Container>
-        <Header />
         <Switch>
           <Route path="/artist/:name/:id" component={ArtistInfo} />
           <Route path="/tracks" component={TopTracks} />

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import App from './components/App';
+import 'antd/dist/antd.css';
 
 const runApp = () => {
   const store = configureStore();

@@ -13,10 +13,10 @@ const TopTracks = (props) => {
 
   useEffect(() => {
     dispatch(requestAddTracks(10));
-  }, []);
+  }, [dispatch]);
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <section style={{ maxWidth: '800px', margin: '0 auto', padding: '10px 0' }}>
       <Title style={{ textAlign: 'center' }}>
         Top {tracksCount} tracks on {<a href="https://www.last.fm">Last.fm</a>}
       </Title>
@@ -48,7 +48,7 @@ const TopTracks = (props) => {
           </List.Item>
         )}
       />
-    </div>
+    </section>
   );
 };
 
