@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { List, Avatar, Typography } from 'antd';
-import { requestAddTracks } from '../store/tracks';
+import { requestAddTracks, selectIsLoading } from '../store/tracks';
 
 const { Title } = Typography;
 
 const TopTracks = (props) => {
   const dispatch = useDispatch();
-  const tracks = useSelector((state) => state.tracks);
+  const tracks = useSelector((state) => state.tracks.items);
+  const isLoading = useSelector(selectIsLoading);
   const tracksCount = tracks.length;
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const TopTracks = (props) => {
       <List
         itemLayout="horizontal"
         dataSource={tracks}
+        loading={isLoading}
         renderItem={(t) => (
           <List.Item>
             <List.Item.Meta
