@@ -1,33 +1,39 @@
-import { fetchTopTracks } from '../services/musicService';
+import { fetchSearchTracks } from '../services/musicService';
 
 // Action types
-const ADD_TRACKS = 'ADD_TRACKS';
-const TRACKS_UPDATE_REQUEST = 'UPDATE_TRACKS_REQUEST';
-const TRACKS_UPDATE_SECCESS = 'UPDATE_TRACKS_SECCESS';
-const TRACKS_UPDATE_FAILURE = 'UPDATE_TRACKS_FAILURE';
+const ADD_SEARCHED_TRACKS = 'ADD_SEARCHED_TRACKS';
+const TRACKS_SEARCH_UPDATE_REQUEST = 'TRACKS_SEARCH_UPDATE_REQUEST';
+const TRACKS_SEARCH_UPDATE_SECCESS = 'TRACKS_SEARCH_UPDATE_SECCESS';
+const TRACKS_SEARCH_UPDATE_FAILURE = 'TRACKS_SEARCH_UPDATE_FAILURE';
 
 // Action creators
-const addTracks = (payload) => ({
-  type: ADD_TRACKS,
+const addSearchedTracks = (payload) => ({
+  type: ADD_SEARCHED_TRACKS,
   payload,
 });
 
-const updateTracksRequest = () => ({ type: TRACKS_UPDATE_REQUEST });
+const updateSearchedTracksRequest = () => ({
+  type: TRACKS_SEARCH_UPDATE_REQUEST,
+});
 
-const updateTracksSuccess = () => ({ type: TRACKS_UPDATE_SECCESS });
+const updateSearhedTracksSuccess = () => ({
+  type: TRACKS_SEARCH_UPDATE_SECCESS,
+});
 
-const updateTracksFailure = () => ({ type: TRACKS_UPDATE_FAILURE });
+const updateSearchedTracksFailure = () => ({
+  type: TRACKS_SEARCH_UPDATE_FAILURE,
+});
 
-export const requestAddTracks = (limit) => async (dispatch) => {
-  dispatch(updateTracksRequest());
+export const requestAddTracks = (searchString, limit) => async (dispatch) => {
+  dispatch(updateSearchedTracksRequest());
 
   try {
-    const tracks = await fetchTopTracks(limit);
-    dispatch(updateTracksSuccess());
-    dispatch(addTracks({ tracks }));
+    const tracks = await fetchSearchTracks(searchString, limit);
+    dispatch(updateSearhedTracksSuccess());
+    dispatch(addSearchedTracks({ tracks }));
   } catch (e) {
     console.log(e);
-    dispatch(updateTracksFailure());
+    dispatch(updateSearchedTracksFailure());
   }
 };
 
@@ -37,18 +43,18 @@ const initialState = {
   requestStatus: null,
 };
 
-const tracksReducer = (state = initialState, action) => {
+const searchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TRACKS_UPDATE_REQUEST: {
+    case TRACKS_SEARCH_UPDATE_REQUEST: {
       return { ...state, requestStatus: 'requested' };
     }
-    case TRACKS_UPDATE_SECCESS: {
+    case TRACKS_SEARCH_UPDATE_SECCESS: {
       return { ...state, requestStatus: 'finished' };
     }
-    case TRACKS_UPDATE_FAILURE: {
+    case TRACKS_SEARCH_UPDATE_FAILURE: {
       return { ...state, requestStatus: 'failed' };
     }
-    case ADD_TRACKS: {
+    case ADD_SEARCHED_TRACKS: {
       const { tracks } = action.payload;
       return { ...state, items: tracks };
     }
@@ -57,7 +63,7 @@ const tracksReducer = (state = initialState, action) => {
   }
 };
 
-export default tracksReducer;
+export default searchReducer;
 
 // Selectors
 export const selectIsLoading = (state) =>

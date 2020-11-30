@@ -7,7 +7,6 @@ const apiBase = 'http://ws.audioscrobbler.com/2.0/';
 const normalizeTrack = (track) => ({
   trackName: track.name,
   artistName: track.artist.name,
-  artistId: track.artist.mbid,
   artistUrl: track.artist.url,
   imageUrl: track.image.find((i) => i.size === 'large')['#text'],
 });
@@ -22,13 +21,17 @@ const normalizeArtist = (artist) => {
   };
 };
 
+const normalizeSearchedTrack = (track) => ({
+  trackName: track.name,
+  artistName: track.artist,
+});
+
 export const fetchArtist = async (artistName) => {
   const url = `${apiBase}?method=artist.getinfo&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await axios.get(url);
     const { artist } = response.data;
-    console.log(artist);
     return normalizeArtist(artist);
   } catch (e) {
     console.log(e);
@@ -41,7 +44,8 @@ export const fetchSearchTracks = async (searchString, limit) => {
 
   try {
     const response = await axios.get(url);
-    return response.data.results.trackmatches.track;
+    const tracks = response.data.results.trackmatches.track;
+    return tracks.map(normalizeSearchedTrack);
   } catch (e) {
     console.log(e);
     throw e;
@@ -54,7 +58,6 @@ export const fetchTopTracks = async (limit) => {
   try {
     const response = await axios.get(url);
     const preparedTracks = response.data.tracks.track.map(normalizeTrack);
-    console.log(response.data.tracks.track);
     return preparedTracks;
   } catch (e) {
     console.log(e);
