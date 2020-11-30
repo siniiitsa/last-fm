@@ -36,6 +36,18 @@ export const fetchArtist = async (artistName) => {
   }
 };
 
+export const fetchSearchTracks = async (searchString, limit) => {
+  const url = `${apiBase}?method=track.search&track=${searchString}&limit=${limit}&api_key=${apiKey}&format=json`;
+
+  try {
+    const response = await axios.get(url);
+    return response.data.results.trackmatches.track;
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
+
 export const fetchTopTracks = async (limit) => {
   const url = `${apiBase}?method=chart.gettoptracks&api_key=${apiKey}&format=json&limit=${limit}`;
 

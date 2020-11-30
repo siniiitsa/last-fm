@@ -5,7 +5,7 @@ import TopTracks from './TopTracks';
 import Container from './common/Container';
 import NotFound from './NotFound';
 import ArtistInfo from './ArtistInfo';
-import TrackSearch from './TrackSearch';
+import TracksSearch from './TracksSearch';
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
         <Switch>
           <Route path="/artist/:name" component={ArtistInfo} />
           <Route path="/tracks" component={TopTracks} />
-          <Route path="/search" component={TrackSearch} />
+          <Route path="/search" component={TracksSearch} />
           <Route path="/not-found" component={NotFound} />
 
           <Redirect from="/chart" to="/tracks" />
