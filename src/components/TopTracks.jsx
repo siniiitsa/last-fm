@@ -33,12 +33,7 @@ const TopTracks = (props) => {
               description={
                 <span>
                   Artist:{' '}
-                  {
-                    <Link to={`/artist/${t.artistName}/${t.artistId}`}>
-                      {t.artistName}
-                    </Link>
-                  }{' '}
-                  |{' '}
+                  {<Link to={`/artist/${t.artistName}`}>{t.artistName}</Link>} |{' '}
                   {
                     <a href={t.artistUrl} rel="noreferrer" target="_blank">
                       Artist page

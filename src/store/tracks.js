@@ -23,8 +23,8 @@ export const requestAddTracks = (limit) => async (dispatch) => {
 
   try {
     const tracks = await fetchTopTracks(limit);
-    dispatch(addTracks({ tracks }));
     dispatch(updateTracksSuccess());
+    dispatch(addTracks({ tracks }));
   } catch (e) {
     console.log(e);
     dispatch(updateTracksFailure());

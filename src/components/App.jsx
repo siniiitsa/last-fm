@@ -13,7 +13,7 @@ const App = () => {
       <Header />
       <Container>
         <Switch>
-          <Route path="/artist/:name/:id" component={ArtistInfo} />
+          <Route path="/artist/:name" component={ArtistInfo} />
           <Route path="/tracks" component={TopTracks} />
           <Route path="/search" component={TrackSearch} />
           <Route path="/not-found" component={NotFound} />

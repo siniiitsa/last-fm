@@ -12,25 +12,24 @@ const normalizeTrack = (track) => ({
   imageUrl: track.image.find((i) => i.size === 'large')['#text'],
 });
 
-export const fetchTrackInfo = async (trackName, artistName) => {
-  const url = `${apiBase}?method=track.getInfo&api_key=${apiKey}&artist=${artistName}&track=${trackName}&format=json`;
-
-  try {
-    const response = await axios.get(url);
-    return response;
-  } catch (e) {
-    console.log(e);
-    throw e;
-  }
+const normalizeArtist = (artist) => {
+  return {
+    about: artist.bio.summary.replace(/<a.*$/gm, '').trim() + '...',
+    artistName: artist.name,
+    artistPage: artist.url,
+    imageUrl: artist.image.find((i) => i.size === 'mega')['#text'],
+    tags: artist.tags.tag,
+  };
 };
 
-export const fetchArtistInfo = async (artistName) => {
+export const fetchArtist = async (artistName) => {
   const url = `${apiBase}?method=artist.getinfo&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await axios.get(url);
-    console.log(response);
-    // return response;
+    const { artist } = response.data;
+    console.log(artist);
+    return normalizeArtist(artist);
   } catch (e) {
     console.log(e);
     throw e;
