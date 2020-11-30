@@ -24,7 +24,7 @@ const TopTracks = (props) => {
       <List
         itemLayout="horizontal"
         dataSource={tracks}
-        loading={isLoading}
+        loading={{ spinning: isLoading, size: 'large' }}
         renderItem={(t) => (
           <List.Item>
             <List.Item.Meta

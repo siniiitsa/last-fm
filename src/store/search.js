@@ -67,4 +67,4 @@ export default searchReducer;
 
 // Selectors
 export const selectIsLoading = (state) =>
-  state.tracks.requestStatus === 'requested';
+  state.search.requestStatus === 'requested';

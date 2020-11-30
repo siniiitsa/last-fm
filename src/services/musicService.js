@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const apiKey = 'b3c75e265ecfbff2202a1e22dbc1e72f';
-const sharedSecret = '238ed36ca9c7c99594def87364c2871d';
 const apiBase = 'http://ws.audioscrobbler.com/2.0/';
 
 const normalizeTrack = (track) => ({
