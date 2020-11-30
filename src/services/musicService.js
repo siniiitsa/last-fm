@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiKey = 'b3c75e265ecfbff2202a1e22dbc1e72f';
-const apiBase = 'http://ws.audioscrobbler.com/2.0/';
+const apiBase = 'https://ws.audioscrobbler.com/2.0/';
 
 const normalizeTrack = (track) => ({
   trackName: track.name,
